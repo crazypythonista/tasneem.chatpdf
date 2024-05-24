@@ -10,6 +10,9 @@ from langchain.chains import ConversationalRetrievalChain
 from htmlTemplates import css, bot_template, user_template
 from langchain.llms import HuggingFaceHub
 
+hf_token = st.secrets["HUGGINGFACE_TOKEN"]["token"]
+os.environ["HUGGINGFACEHUB_API_TOKEN"] = hf_token
+
 def get_pdf_text(pdf_docs):
     text = ""
     for pdf in pdf_docs:
@@ -18,7 +21,6 @@ def get_pdf_text(pdf_docs):
             text += page.extract_text()
     return text
     
-HUGGINGFACEHUB_API_TOKEN = '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'
 
 def get_text_chunks(text):
     text_splitter = CharacterTextSplitter(
